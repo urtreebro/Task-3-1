@@ -16,7 +16,12 @@ namespace classarrays
 
             private int[] array;
 
-            public OneDimensionalArray(int n, bool userInput)
+            public int[] Array
+            {
+                get { return array; }
+            }
+
+            public OneDimensionalArray(int n, bool userInput = false)
             {
                 this.n = n;
 
@@ -32,6 +37,21 @@ namespace classarrays
                     RandomInput();
                 }
             }   
+
+            public void Fill(int n, bool userInput = false)
+            {
+                this.n = n;
+
+                if (userInput) 
+                {
+                    Console.WriteLine($"Input {n} numbers");
+                    UserInput(); 
+                }
+                else 
+                { 
+                    RandomInput();
+                }
+            }
 
             public void RandomInput()
             {

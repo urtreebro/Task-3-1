@@ -16,11 +16,25 @@ namespace classarrays
 
             private bool userInput;
 
-            public JaggedArray(int n, bool userInput)
+            public JaggedArray(int n, bool userInput = false)
             {
                 this.n = n;
 
                 this.userInput = userInput;
+
+                if (userInput)
+                {
+                    UserInput();
+                }
+                else
+                {
+                    RandomInput();
+                }
+            }
+
+            public void Fill(int n, bool userInput = false)
+            {
+                this.n = n;
 
                 if (userInput)
                 {
@@ -33,42 +47,39 @@ namespace classarrays
                 }
             }
 
-            public void UserInput()
+            public int[][] UserInput()
             {
                 array = new int[n][];
 
                 for (int i = 0; i < n; i++)
                 {
-                    string row = Console.ReadLine();
-                    string[] strRow = row.Split(' ');
-                    int[] _row = new int[strRow.Length];
+                    Console.WriteLine("Input length of nested array");
 
-                    for (int j = 0; j < strRow.Length; j++)
-                    {
-                        _row[j] = int.Parse(strRow[j]);
-                    }
-                    array[i] = _row;
+                    int m = int.Parse(Console.ReadLine());
+
+                    OneDimensionalArray nestedArray = new(m, true);
+
+                    array[i] = nestedArray.Array;
                 }
+                return array;
             }
 
-            public void RandomInput()
+            public int[][] RandomInput()
             {
                 array = new int[n][];
 
-                Random rnd = new();
-
                 for (int i = 0; i < n; i++)
                 {
-                    int m = rnd.Next(1, 10);
-                    int[] row = new int[m];
+                    Console.WriteLine("Input length of nested array");
 
-                    for (int j = 0; j < m; j++)
-                    {
-                        int num = rnd.Next(-1000, 1000);
-                        row[j] = num;
-                    }
-                    array[i] = row;
+                    int m = int.Parse(Console.ReadLine());
+
+                    OneDimensionalArray nestedArray = new(m);
+
+                    array[i] = nestedArray.Array;
                 }
+
+                return array;
             }
 
             public void PrintArray()

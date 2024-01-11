@@ -18,8 +18,16 @@ namespace classarrays
 
             private int[,] array;
 
-            public TwoDimensionalArray(int n, int m, bool userInput)
+            public int Rows
             {
+                get { return n; }
+            }
+            public int Columns
+            {
+                get { return m; }
+            }
+            public TwoDimensionalArray(int n, int m, bool userInput = false)
+            {    
                 this.n = n;
 
                 this.m = m;
@@ -37,6 +45,22 @@ namespace classarrays
                 }
             }
 
+            public void Fill(int n, int m, bool userInput = false)
+            {
+                this.n = n;
+
+                this.m = m;
+
+                if (userInput)
+                {
+                    Console.WriteLine($"Input {n * m} numbers");
+                    UserInput();
+                }
+                else
+                {
+                    RandomInput();
+                }
+            }
             public void UserInput()
             {
                 array = new int[n, m];
