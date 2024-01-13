@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace classarrays
 {
-    partial class Program
+    class Program
     {
         public static void Main()
         {
@@ -71,8 +71,7 @@ namespace classarrays
                     //jagged arrays
                     Console.WriteLine("Create jagged array");
                     Console.WriteLine("Input number of rows");
-                    Console.WriteLine("Then write 'true' if you want to input array by yourself");
-                    Console.WriteLine("Otherwise write 'false'");
+                    Console.WriteLine("Then write 'true' if you want to input array by yourself. Otherwise write 'false'");
 
                     JaggedArray jaggedarray = new(int.Parse(Console.ReadLine()), bool.Parse(Console.ReadLine()));
                     jaggedarray.PrintArray();

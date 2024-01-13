@@ -6,159 +6,156 @@ using System.Threading.Tasks;
 
 namespace classarrays
 {
-    partial class Program
+    class OneDimensionalArray
     {
-        public class OneDimensionalArray
+        private int n;
+
+        private bool userInput = false;
+
+        private int[] array;
+
+        public int[] Array
         {
-            private int n;
+            get { return array; }
+        }
 
-            private bool userInput = false;
+        public OneDimensionalArray(int n, bool userInput = false)
+        {
+            this.n = n;
 
-            private int[] array;
+            this.userInput = userInput;
 
-            public int[] Array
+            if (userInput) 
             {
-                get { return array; }
+                Console.WriteLine($"Input {n} numbers");
+                UserInput(); 
             }
-
-            public OneDimensionalArray(int n, bool userInput = false)
-            {
-                this.n = n;
-
-                this.userInput = userInput;
-
-                if (userInput) 
-                {
-                    Console.WriteLine($"Input {n} numbers");
-                    UserInput(); 
-                }
-                else 
-                { 
-                    RandomInput();
-                }
-            }   
-
-            public void Fill(int n, bool userInput = false)
-            {
-                this.n = n;
-
-                if (userInput) 
-                {
-                    Console.WriteLine($"Input {n} numbers");
-                    UserInput(); 
-                }
-                else 
-                { 
-                    RandomInput();
-                }
+            else 
+            { 
+                RandomInput();
             }
+        }   
 
-            public void RandomInput()
+        public void Fill(int n, bool userInput = false)
+        {
+            this.n = n;
+
+            if (userInput) 
             {
-                array = new int[n];
-
-                Random rnd = new();
-
-                for (int i = 0; i < array.Length; i++)
-                {
-                    int value = rnd.Next(-1000, 1000);
-                    array[i] = value;
-                }
+                Console.WriteLine($"Input {n} numbers");
+                UserInput(); 
             }
-
-            public int[] UserInput()
-            {
-                int[] array = new int[n];
-
-                for (int i = 0; i < n; i++)
-                {
-                    if (int.TryParse(Console.ReadLine(), out int num))
-                    {
-                        array[i] = num;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error: couldn't convert into int");
-                    }
-                }
-                return array;
-            }
-
-            public void PrintArray()
-            {
-                Console.WriteLine(string.Join(" ", array));
-            }
-
-            public double GetAverageNum()
-            {
-                double sum = 0;
-
-                foreach (int num in array)
-                {
-                    sum += num;
-                }
-                double average = sum / n;
-                return average;
-            }
-
-            public int[] GetArrayAbs100()
-            {
-                int newLength = n;
-
-                foreach (int num in array)
-                {
-                    if (Math.Abs(num) > 100)
-                    {
-                        newLength--;
-                    }
-                }
-
-                int[] newArray = new int[newLength];
-
-                int newIndex = 0;
-
-                for (int i = 0; i < n; i++)
-                {
-                    if (Math.Abs(array[i]) <= 100)
-                    {
-                        newArray[newIndex] = array[i];
-                        newIndex++;
-                    }
-                }
-                return newArray;
-            }
-
-            public int[] GetArrayWithoutDuplicates()
-            {
-                int newLength = n;
-
-                for (int i = 0; i < n; i++)
-                {
-                    for (int j = i; j < n; j++)
-                    {
-                        if (i != j && array[i] == array[j])
-                        {
-                            newLength--;
-                            break;
-                        }
-                    }
-                }
-
-                int[] newArray = new int[newLength];
-
-                int newIndex = 0;
-
-                for (int i = 0; i < n; i++)
-                {
-                    if (!newArray.Contains(array[i]))
-                    {
-                        newArray[newIndex] = array[i];
-                        newIndex++;
-                    }
-                }
-                return newArray;
+            else 
+            { 
+                RandomInput();
             }
         }
-    }
+
+        public void RandomInput()
+        {
+            array = new int[n];
+
+            Random rnd = new();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                int value = rnd.Next(-1000, 1000);
+                array[i] = value;
+            }
+        }
+
+        public void UserInput()
+        {
+            array = new int[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                if (int.TryParse(Console.ReadLine(), out int num))
+                {
+                    array[i] = num;
+                }
+                else
+                {
+                    Console.WriteLine("Couldn't convert into int");
+                }
+            }
+        }
+
+        public void PrintArray()
+        {
+            Console.WriteLine("Printed array:");
+            Console.WriteLine(string.Join(" ", array));
+        }
+
+        public double GetAverageNum()
+        {
+            double sum = 0;
+
+            foreach (int num in array)
+            {
+                sum += num;
+            }
+            double average = sum / n;
+            return average;
+        }
+
+        public int[] GetArrayAbs100()
+        {
+            int newLength = n;
+
+            foreach (int num in array)
+            {
+                if (Math.Abs(num) > 100)
+                {
+                    newLength--;
+                }
+            }
+
+            int[] newArray = new int[newLength];
+
+            int newIndex = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (Math.Abs(array[i]) <= 100)
+                {
+                    newArray[newIndex] = array[i];
+                    newIndex++;
+                }
+            }
+            return newArray;
+        }
+
+        public int[] GetArrayWithoutDuplicates()
+        {
+            int newLength = n;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i; j < n; j++)
+                {
+                    if (i != j && array[i] == array[j])
+                    {
+                        newLength--;
+                        break;
+                    }
+                }
+            }
+
+            int[] newArray = new int[newLength];
+
+            int newIndex = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (!newArray.Contains(array[i]))
+                {
+                    newArray[newIndex] = array[i];
+                    newIndex++;
+                }
+            }
+            return newArray;
+        }
+    }  
 }
 

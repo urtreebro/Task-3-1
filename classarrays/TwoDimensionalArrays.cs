@@ -6,97 +6,112 @@ using System.Threading.Tasks;
 
 namespace classarrays
 {
-    partial class Program
+    class TwoDimensionalArray
     {
-        public class TwoDimensionalArray
+        private int n;
+
+        private int m;
+
+        private bool userInput;
+
+        private int[,] array;
+
+        public int Rows
         {
-            private int n;
+            get { return n; }
+        }
+        public int Columns
+        {
+            get { return m; }
+        }
+        public TwoDimensionalArray(int n, int m, bool userInput = false)
+        {    
+            this.n = n;
 
-            private int m;
+            this.m = m;
 
-            private bool userInput;
+            this.userInput = userInput;
 
-            private int[,] array;
-
-            public int Rows
+            if (userInput)
             {
-                get { return n; }
+                Console.WriteLine($"Input {n * m} numbers");
+                UserInput();
             }
-            public int Columns
+            else
             {
-                get { return m; }
+                RandomInput();
             }
-            public TwoDimensionalArray(int n, int m, bool userInput = false)
-            {    
-                this.n = n;
+        }
 
-                this.m = m;
+        public void Fill(int n, int m, bool userInput = false)
+        {
+            this.n = n;
 
-                this.userInput = userInput;
+            this.m = m;
 
-                if (userInput)
-                {
-                    Console.WriteLine($"Input {n * m} numbers");
-                    UserInput();
-                }
-                else
-                {
-                    RandomInput();
-                }
-            }
-
-            public void Fill(int n, int m, bool userInput = false)
+            if (userInput)
             {
-                this.n = n;
-
-                this.m = m;
-
-                if (userInput)
-                {
-                    Console.WriteLine($"Input {n * m} numbers");
-                    UserInput();
-                }
-                else
-                {
-                    RandomInput();
-                }
+                Console.WriteLine($"Input {n * m} numbers");
+                UserInput();
             }
-            public void UserInput()
+            else
             {
-                array = new int[n, m];
+                RandomInput();
+            }
+        }
+        public void UserInput()
+        {
+            array = new int[n, m];
 
-                for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
                 {
-                    for (int j = 0; j < m; j++)
+                    if (int.TryParse(Console.ReadLine(), out int num))
                     {
-                        if (int.TryParse(Console.ReadLine(), out int num))
-                        {
-                            array[i, j] = num;
-                        }
+                        array[i, j] = num;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Couldn't convert into int");
                     }
                 }
             }
+        }
 
-            public void RandomInput()
+        public void RandomInput()
+        {
+            array = new int[n, m];
+
+            Random rnd = new();
+
+            for (int i = 0; i < n; i++)
             {
-                array = new int[n, m];
-
-                Random rnd = new();
-
-                for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
                 {
-                    for (int j = 0; j < m; j++)
-                    {
-                        int value = rnd.Next(-1000, 1000);
-                        array[i, j] = value;
-                    }
+                    int value = rnd.Next(-1000, 1000);
+                    array[i, j] = value;
                 }
             }
+        }
 
-            public void PrintArray()
+        public void PrintArray()
+        {
+            Console.WriteLine("Normally printed array:");
+            for (int i = 0; i < n; i++)
             {
-                Console.WriteLine("Normally printed array:");
-                for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                {
+                    Console.Write(array[i, j]);
+                    Console.Write("\t");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine("Snake-like printed array:");
+            for (int i = 0; i < n; i++)
+            {
+                if (i % 2 == 0)
                 {
                     for (int j = 0; j < m; j++)
                     {
@@ -105,103 +120,89 @@ namespace classarrays
                     }
                     Console.WriteLine();
                 }
-
-                Console.WriteLine("Snake-like printed array:");
-                for (int i = 0; i < n; i++)
+                else
                 {
-                    if (i % 2 == 0)
+                    for (int j = m - 1; j >= 0; j--)
                     {
-                        for (int j = 0; j < m; j++)
-                        {
-                            Console.Write(array[i, j]);
-                            Console.Write("\t");
-                        }
-                        Console.WriteLine();
+                        Console.Write(array[i, j]);
+                        Console.Write("\t");
                     }
-                    else
-                    {
-                        for (int j = m - 1; j >= 0; j--)
-                        {
-                            Console.Write(array[i, j]);
-                            Console.Write("\t");
-                        }
-                        Console.WriteLine();
-                    }
+                    Console.WriteLine();
                 }
             }
+        }
 
-            public double GetAverageNum()
+        public double GetAverageNum()
+        {
+            double sum = 0;
+
+            for (int i = 0; i < n; i++)
             {
-                double sum = 0;
-
-                for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
                 {
-                    for (int j = 0; j < m; j++)
-                    {
-                        sum += array[i, j];
-                    }
+                    sum += array[i, j];
                 }
-                double average = sum / (n * m);
-                return average;
+            }
+            double average = sum / (n * m);
+            return average;
+        }
+
+        public double GetMatrixDeterminant()
+        {
+            return GetMatrixDeterminant(array);
+        }
+
+        public double GetMatrixDeterminant(int[,] array)
+        {
+            int size = array.GetLength(0);
+
+            if (size != array.GetLength(1))
+            {
+                throw new ArgumentException("Matrix determinant can only be get in square matrix");
             }
 
-            public double GetMatrixDeterminant()
+            if (size == 1)
             {
-                return GetMatrixDeterminant(array);
+                return array[0, 0];
             }
 
-            public double GetMatrixDeterminant(int[,] array)
+            double determinant = 0;
+
+            for (int i = 0; i < size; i++)
             {
-                int size = array.GetLength(0);
-
-                if (size != array.GetLength(1))
-                {
-                    throw new ArgumentException("Matrix determinant can only be get in square matrix");
-                }
-
-                if (size == 1)
-                {
-                    return array[0, 0];
-                }
-
-                double determinant = 0;
-
-                for (int i = 0; i < size; i++)
-                {
-                    int[,] subArray = CreateSubArray(array, 0, i);
-                    determinant += Math.Pow(-1, i) * array[0, i] * GetMatrixDeterminant(subArray);
-                }
-                return determinant;
+                int[,] subArray = CreateSubArray(array, 0, i);
+                determinant += Math.Pow(-1, i) * array[0, i] * GetMatrixDeterminant(subArray);
             }
+            return determinant;
+        }
 
-            private int[,] CreateSubArray(int[,] array, int excludedRow, int excludedColumn)
+        private int[,] CreateSubArray(int[,] array, int excludedRow, int excludedColumn)
+        {
+            int size = array.GetLength(0);
+
+            int[,] subArray = new int[size - 1, size - 1];
+
+            int row = 0;
+
+            for (int i = 0; i < size; i++)
             {
-                int size = array.GetLength(0);
-
-                int[,] subArray = new int[size - 1, size - 1];
-
-                int row = 0;
-
-                for (int i = 0; i < size; i++)
+                if (i == excludedRow)
                 {
-                    if (i == excludedRow)
+                    continue;
+                }
+                int column = 0;
+                for (int j = 0; j < size; j++)
+                {
+                    if (j == excludedColumn)
                     {
                         continue;
                     }
-                    int column = 0;
-                    for (int j = 0; j < size; j++)
-                    {
-                        if (j == excludedColumn)
-                        {
-                            continue;
-                        }
-                        subArray[row, column] = array[i, j];
-                        column++;
-                    }
-                    row++;
+                    subArray[row, column] = array[i, j];
+                    column++;
                 }
-                return subArray;
+                row++;
             }
-        } 
-    }
+            return subArray;
+        }
+    } 
 }
