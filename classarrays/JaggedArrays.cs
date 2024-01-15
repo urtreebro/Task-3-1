@@ -14,6 +14,8 @@ namespace classarrays
 
         private bool userInput;
 
+        private OneDimensionalArray[] onedimarrays;
+
         public JaggedArray(int n, bool userInput = false)
         {
             this.n = n;
@@ -29,7 +31,10 @@ namespace classarrays
                 RandomInput();
             }
         }
-
+        public int this[int index1, int index2]
+        {
+            get { return array[index1][index2]; }
+        }
         public void Fill(int n, bool userInput = false)
         {
             this.n = n;
@@ -48,6 +53,8 @@ namespace classarrays
         {
             array = new int[n][];
 
+            onedimarrays = new OneDimensionalArray[n];
+
             for (int i = 0; i < n; i++)
             {
                 Console.WriteLine("Input length of nested array");
@@ -57,12 +64,16 @@ namespace classarrays
                 OneDimensionalArray nestedArray = new(m, true);
 
                 array[i] = nestedArray.Array;
+
+                onedimarrays[i] = nestedArray;
             }
         }
 
         public void RandomInput()
         {
             array = new int[n][];
+
+            onedimarrays = new OneDimensionalArray[n];
 
             for (int i = 0; i < n; i++)
             {
@@ -73,6 +84,8 @@ namespace classarrays
                 OneDimensionalArray nestedArray = new(m);
 
                 array[i] = nestedArray.Array;
+
+                onedimarrays[i] = nestedArray;
             }
         }
 
@@ -103,7 +116,7 @@ namespace classarrays
                     count++;
                 }
             }
-            double average = sum / count;
+            double average = sum;
             return average;
         }
 
@@ -113,15 +126,8 @@ namespace classarrays
 
             for (int i = 0; i < n; i++)
             {
-                double sum = 0;
-                int count = 0;
+                double average = onedimarrays[i].GetAverageNum();
 
-                for (int j = 0; j < array[i].Length; j++)
-                {
-                    sum += array[i][j];
-                    count++;
-                }
-                double average = sum / count;
                 averageArray[i] = average;
             }
             return averageArray;

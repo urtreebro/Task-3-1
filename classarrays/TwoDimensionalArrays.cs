@@ -43,6 +43,11 @@ namespace classarrays
             }
         }
 
+        public int this[int index1, int index2]
+        {
+            get { return array[index1, index2]; }
+        }
+
         public void Fill(int n, int m, bool userInput = false)
         {
             this.n = n;

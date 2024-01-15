@@ -19,6 +19,11 @@ namespace classarrays
             get { return array; }
         }
 
+        public int this[int index]
+        {
+            get { return array[index]; }
+        }
+
         public OneDimensionalArray(int n, bool userInput = false)
         {
             this.n = n;
