@@ -10,11 +10,11 @@ namespace classarrays
     {
         private int n;
 
-        private int[][] array;
-
         private bool userInput;
 
-        private OneDimensionalArray[] onedimarrays;
+        private OneDimensionalArray[] array;
+
+        private static Random rnd = new();
 
         public JaggedArray(int n, bool userInput = false)
         {
@@ -22,7 +22,7 @@ namespace classarrays
 
             this.userInput = userInput;
 
-            array = new int[n][];
+            array = new OneDimensionalArray[n];
 
             if (userInput)
             {
@@ -41,6 +41,8 @@ namespace classarrays
         {
             this.n = n;
 
+            array = new OneDimensionalArray[n];
+
             if (userInput)
             {
                 UserInput();
@@ -53,8 +55,6 @@ namespace classarrays
 
         public void UserInput()
         {
-            onedimarrays = new OneDimensionalArray[n];
-
             for (int i = 0; i < n; i++)
             {
                 Console.WriteLine("Input length of nested array");
@@ -63,27 +63,17 @@ namespace classarrays
 
                 OneDimensionalArray nestedArray = new(m, true);
 
-                array[i] = nestedArray.Array;
-
-                onedimarrays[i] = nestedArray;
+                array[i] = nestedArray;
             }
         }
 
         public void RandomInput()
         {
-            onedimarrays = new OneDimensionalArray[n];
-
             for (int i = 0; i < n; i++)
             {
-                Console.WriteLine("Input length of nested array");
+                OneDimensionalArray nestedArray = new(rnd.Next(1, 10));
 
-                int m = int.Parse(Console.ReadLine());
-
-                OneDimensionalArray nestedArray = new(m);
-
-                array[i] = nestedArray.Array;
-
-                onedimarrays[i] = nestedArray;
+                array[i] = nestedArray;
             }
         }
 
@@ -124,7 +114,7 @@ namespace classarrays
 
             for (int i = 0; i < n; i++)
             {
-                double average = onedimarrays[i].GetAverageNum();
+                double average = array[i].GetAverageNum();
 
                 averageArray[i] = average;
             }

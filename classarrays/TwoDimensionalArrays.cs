@@ -55,6 +55,8 @@ namespace classarrays
 
             this.m = m;
 
+            array = new int[n, m];
+
             if (userInput)
             {
                 Console.WriteLine($"Input {n * m} numbers");

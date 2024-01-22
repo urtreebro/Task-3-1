@@ -21,9 +21,15 @@ namespace classarrays
             get { return array; }
         }
 
+        public int Length
+        {
+            get { return n; }
+        }
+
         public int this[int index]
         {
             get { return array[index]; }
+            set { array[index] = value; }
         }
 
         public OneDimensionalArray(int n, bool userInput = false)
