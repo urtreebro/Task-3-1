@@ -22,6 +22,8 @@ namespace classarrays
 
             this.userInput = userInput;
 
+            array = new int[n][];
+
             if (userInput)
             {
                 UserInput();
@@ -51,8 +53,6 @@ namespace classarrays
 
         public void UserInput()
         {
-            array = new int[n][];
-
             onedimarrays = new OneDimensionalArray[n];
 
             for (int i = 0; i < n; i++)
@@ -71,8 +71,6 @@ namespace classarrays
 
         public void RandomInput()
         {
-            array = new int[n][];
-
             onedimarrays = new OneDimensionalArray[n];
 
             for (int i = 0; i < n; i++)

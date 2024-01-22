@@ -16,14 +16,13 @@ namespace classarrays
 
         private int[,] array;
 
-        public int Rows
+        private static Random rnd = new();
+
+        public int[,] Array
         {
-            get { return n; }
+            get { return array; }
         }
-        public int Columns
-        {
-            get { return m; }
-        }
+
         public TwoDimensionalArray(int n, int m, bool userInput = false)
         {    
             this.n = n;
@@ -31,6 +30,8 @@ namespace classarrays
             this.m = m;
 
             this.userInput = userInput;
+
+            array = new int[n, m];
 
             if (userInput)
             {
@@ -66,8 +67,6 @@ namespace classarrays
         }
         public void UserInput()
         {
-            array = new int[n, m];
-
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -86,10 +85,6 @@ namespace classarrays
 
         public void RandomInput()
         {
-            array = new int[n, m];
-
-            Random rnd = new();
-
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)

@@ -14,6 +14,8 @@ namespace classarrays
 
         private int[] array;
 
+        private static Random rnd = new();
+
         public int[] Array
         {
             get { return array; }
@@ -30,6 +32,8 @@ namespace classarrays
 
             this.userInput = userInput;
 
+            array = new int[n];
+
             if (userInput) 
             {
                 Console.WriteLine($"Input {n} numbers");
@@ -45,6 +49,8 @@ namespace classarrays
         {
             this.n = n;
 
+            array = new int[n];
+
             if (userInput) 
             {
                 Console.WriteLine($"Input {n} numbers");
@@ -58,10 +64,6 @@ namespace classarrays
 
         public void RandomInput()
         {
-            array = new int[n];
-
-            Random rnd = new();
-
             for (int i = 0; i < array.Length; i++)
             {
                 int value = rnd.Next(-1000, 1000);
@@ -71,8 +73,6 @@ namespace classarrays
 
         public void UserInput()
         {
-            array = new int[n];
-
             for (int i = 0; i < n; i++)
             {
                 if (int.TryParse(Console.ReadLine(), out int num))

@@ -53,7 +53,7 @@ namespace classarrays
 
                     Console.WriteLine($"Average: {twodimarray.GetAverageNum()}");
                     
-                    if (twodimarray.Rows == twodimarray.Columns)
+                    if (twodimarray.Array.GetLength(0) == twodimarray.Array.GetLength(1))
                     {
                         Console.WriteLine($"Determinant: {twodimarray.GetMatrixDeterminant()}");
                     }
